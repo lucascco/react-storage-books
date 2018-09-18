@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 import './css/pure-min.css';
 import './css/side-menu.css';
+import $ from 'jquery';
 
 class App extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      listAuthor: [{name: 'lucas', email:'lucas@react.com.br', senha: '123456'}]
+    };
+  }
+
   render() {
     return (
       <div id="layout">
@@ -56,6 +65,14 @@ class App extends Component {
                       </tr>
                     </thead>
                     <tbody>
+                      {
+                        this.state.listAuthor.map(author => 
+                          <tr>
+                            <td>{ author.name }</td>
+                            <td>{ author.email }</td>
+                          </tr>
+                        )
+                      }
                       <tr>
                         <td>Alberto</td>
                         <td>alberto.souza@caelum.com.br</td>
