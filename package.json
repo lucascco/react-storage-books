@@ -1,0 +1,25 @@
+{
+  "name": "react-storage-books",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.5.1",
+    "react-dom": "^16.5.1",
+    "react-scripts": "1.1.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucascco/react-storage-books.git"
+  },
+  "author": "Lucas Correa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucascco/react-storage-books/issues"
+  }
+}
