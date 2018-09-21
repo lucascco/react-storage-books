@@ -5,11 +5,35 @@ import $ from 'jquery';
 
 class App extends Component {
 
+  API_URL = 'http://cdc-react.herokuapp.com/api/autores';
+
   constructor() {
     super();
     this.state = {
-      listAuthor: [{name: 'lucas', email:'lucas@react.com.br', senha: '123456'}]
+      listAuthor: []
     };
+  }
+
+  sendForm(event) {
+    event.preventDefault();
+    $.ajax({
+      url: this.API_URL,
+      dataType: 'json',
+      type: 'post',
+      data: JSON.stringify({nome: '', senha: '', email: ''}),
+      success: () => console.log('ok'),
+      error: () => console.log('error')
+    })
+  }
+  
+  componentDidMount() {
+    $.ajax({
+      url: this.API_URL,
+      dataType: 'json',
+      success: res => {
+        this.setState({listAuthor: res});
+      }
+    })
   }
 
   render() {
@@ -37,7 +61,7 @@ class App extends Component {
               </div>
               <div className="content" id="content">
                 <div className="pure-form pure-form-aligned">
-                  <form className="pure-form pure-form-aligned">
+                  <form className="pure-form pure-form-aligned" onSubmit={this.sendForm.bind(this)} method="post">
                     <div className="pure-control-group">
                       <label htmlFor="nome">Nome</label> 
                       <input id="nome" type="text" name="nome" value=""  />                  
@@ -67,16 +91,12 @@ class App extends Component {
                     <tbody>
                       {
                         this.state.listAuthor.map(author => 
-                          <tr>
-                            <td>{ author.name }</td>
+                          <tr key={author.id}>
+                            <td>{ author.nome }</td>
                             <td>{ author.email }</td>
                           </tr>
                         )
                       }
-                      <tr>
-                        <td>Alberto</td>
-                        <td>alberto.souza@caelum.com.br</td>
-                      </tr>
                     </tbody>
                   </table>
                 </div>
