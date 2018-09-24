@@ -127,8 +127,13 @@ export default class AuthorBox extends Component {
 	render() {
 		return (
 			<div>
-				<FormAuthor apiurl={this.API_URL}/>
-				<ListAuthors apiurl={this.API_URL} listAuthor={this.state.listAuthor}/>
+				<div className="header">
+					<h1>Cadastro de autores</h1>
+				</div>
+				<div className="content" id="content">
+						<FormAuthor apiurl={this.API_URL}/>
+						<ListAuthors apiurl={this.API_URL} listAuthor={this.state.listAuthor}/>
+				</div>
 			</div>
 		);
 	}
