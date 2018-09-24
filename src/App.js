@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import './css/pure-min.css';
 import './css/side-menu.css';
-import AuthorBox from './AuthorBox.js';
+import AuthorBox from './Author/AuthorBox';
 
 class App extends Component {
-
-  constructor() {
-    super();
-  }
 
   render() {
     return (

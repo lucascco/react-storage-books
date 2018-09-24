@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 
 import $ from 'jquery';
-import CustomInput from './components/customInput';
+import CustomInput from '../components/customInput';
+import SubscribersAuthor from './Subscribers';
 
 class FormAuthor extends Component {
+
+	subscribersAuthor = new SubscribersAuthor();
 
   constructor() {
     super();
@@ -12,19 +15,27 @@ class FormAuthor extends Component {
     this.setName = this.setName.bind(this);
     this.setPassword = this.setPassword.bind(this);
     this.state = { nome: '', senha: '', email: '' };
-  }
+	}
 
-sendForm(event) {
-	event.preventDefault();
-	$.ajax({
-		url: this.props.apiurl,
-		contentType:'application/json',
-		dataType: 'json',
-		type: 'post',
-		data: JSON.stringify({nome: this.state.nome, senha: this.state.senha, email: this.state.email}),
-		success: res => this.props.onRegisterAuthor({listAuthor: res}),
-		error: error => console.error('error', error)
-	});
+	sendForm(event) {
+		event.preventDefault();
+		$.ajax({
+			url: this.props.apiurl,
+			contentType:'application/json',
+			dataType: 'json',
+			type: 'post',
+			data: JSON.stringify({nome: this.state.nome, senha: this.state.senha, email: this.state.email}),
+			success: res => this.subscribersAuthor.onUpdateList('publish', undefined, {listAuthor: res}),
+			error: error => {
+				if(error.status === 400) {
+					this.subscribersAuthor.onFormError('publish', undefined, error.responseJSON);
+				}
+			},
+			beforeSend: () => {
+				this.subscribersAuthor.onClearForm('publish', undefined, {});
+				this.setState({nome: '', senha: '', email: ''});
+			}
+		});
 }
 
 
@@ -85,31 +96,38 @@ class ListAuthors extends Component {
 
 export default class AuthorBox extends Component {
 	API_URL = 'http://cdc-react.herokuapp.com/api/autores';
+	subscribersAuthor = new SubscribersAuthor();
 	
   constructor() {
 		super();
-		this.onRegisterAuthor = this.onRegisterAuthor.bind(this);
     this.state = { listAuthor: [] };
 	}
 
   componentDidMount() {
+		this.loadAuthors();
+		this.registerSubscribes();
+	}
+
+	loadAuthors() {
     $.ajax({
       url: this.API_URL,
       dataType: 'json',
       success: res => {
         this.setState({listAuthor: res});
       }
-    });
+		});
+	}
+
+	registerSubscribes() {
+		this.subscribersAuthor.onUpdateList('subscribe', 
+			(topic, data) => this.setState({listAuthor: data.listAuthor}));
 	}
 	
-	onRegisterAuthor(data) {
-		this.setState({listAuthor: data.listAuthor});
-	}
 
 	render() {
 		return (
 			<div>
-				<FormAuthor apiurl={this.API_URL} onRegisterAuthor={this.onRegisterAuthor}/>
+				<FormAuthor apiurl={this.API_URL}/>
 				<ListAuthors apiurl={this.API_URL} listAuthor={this.state.listAuthor}/>
 			</div>
 		);
