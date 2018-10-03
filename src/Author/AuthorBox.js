@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import CustomInput from '../components/customInput';
 import SubscribersAuthor from './Subscribers';
+import { API_URL_AUTHOR } from './../common/ApiUrl';
 
 class FormAuthor extends Component {
 
@@ -53,17 +54,15 @@ setEmail(event) {
 
 render() {
 	return (
-		<div className="pure-form pure-form-aligned">
-			<form className="pure-form pure-form-aligned" onSubmit={this.sendForm} method="post">
-				<CustomInput id="nome" type="text" name="nome" label="Nome" value={this.state.nome} onChange={this.setName}/>
-				<CustomInput id="email" type="email" name="email" label="E-mail" value={this.state.email} onChange={this.setEmail}/>
-				<CustomInput id="senha" type="password" name="senha" label="Senha" value={this.state.senha} onChange={this.setPassword}/>
-				<div className="pure-control-group">                                  
-					<label></label> 
-					<button type="submit" className="pure-button pure-button-primary">Gravar</button>                                    
-				</div>
-			</form>             
-		</div>
+		<form className="pure-form pure-form-aligned" onSubmit={this.sendForm} method="post">
+			<CustomInput id="nome" type="text" name="nome" label="Nome" value={this.state.nome} onChange={this.setName}/>
+			<CustomInput id="email" type="email" name="email" label="E-mail" value={this.state.email} onChange={this.setEmail}/>
+			<CustomInput id="senha" type="password" name="senha" label="Senha" value={this.state.senha} onChange={this.setPassword}/>
+			<div className="pure-control-group">                                  
+				<label></label> 
+				<button type="submit" className="pure-button pure-button-primary">Gravar</button>                                    
+			</div>
+		</form>             
 		)
 	}
 }
@@ -110,7 +109,7 @@ export default class AuthorBox extends Component {
 
 	loadAuthors() {
     $.ajax({
-      url: this.API_URL,
+      url: API_URL_AUTHOR,
       dataType: 'json',
       success: res => {
         this.setState({listAuthor: res});
@@ -131,8 +130,8 @@ export default class AuthorBox extends Component {
 					<h1>Cadastro de autores</h1>
 				</div>
 				<div className="content" id="content">
-						<FormAuthor apiurl={this.API_URL}/>
-						<ListAuthors apiurl={this.API_URL} listAuthor={this.state.listAuthor}/>
+						<FormAuthor apiurl={API_URL_AUTHOR}/>
+						<ListAuthors listAuthor={this.state.listAuthor}/>
 				</div>
 			</div>
 		);
