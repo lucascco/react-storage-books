@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './css/pure-min.css';
 import './css/side-menu.css';
-import AuthorBox from './Author/AuthorBox';
+import { Link } from 'react-router-dom';
 
 class App extends Component {
 
@@ -17,16 +17,16 @@ class App extends Component {
                   <a className="pure-menu-heading" href="#">Company</a>
 
                   <ul className="pure-menu-list">
-                      <li className="pure-menu-item"><a href="#" className="pure-menu-link">Home</a></li>
-                      <li className="pure-menu-item"><a href="#" className="pure-menu-link">Autor</a></li>
-                      <li className="pure-menu-item"><a href="#" className="pure-menu-link">Livro</a></li>
+                      <li className="pure-menu-item"><Link to="/" className="pure-menu-link">Home</Link></li>
+                      <li className="pure-menu-item"><Link to="/autor" className="pure-menu-link">Autor</Link></li>
+                      <li className="pure-menu-item"><Link to="/livros" className="pure-menu-link">Livro</Link></li>
                   </ul>
               </div>
           </div>
 
-          <div id="main">
-						<AuthorBox />
-          </div>
+          <main id="main">
+						{this.props.children}
+          </main>
       </div>
     );
   }

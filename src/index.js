@@ -1,21 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { Router, Route, IndexRoute } from 'react-router';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
-
-import AuthorBox from './Author/AuthorBox';
 import App from './App';
 import Home from './Home';
+import AuthorBox from './Author/AuthorBox';
 
 ReactDOM.render(
-	<Router>
-		<Route path="/" component={App}>
-			<IndexRoute component={Home}/>
-			<Route path="/autor" component={AuthorBox}/>
-			<Route path="/livro"/>
-		</Route>
-	</Router>,
+	<BrowserRouter>
+		<App>
+			<Switch>            
+					<Route exact path="/" component={Home}/>
+					<Route path="/autor" component={AuthorBox}/>
+					<Route path="/livro"/>                
+			</Switch>            
+		</App>
+	</BrowserRouter>,
 	document.getElementById('root')
 );
 registerServiceWorker();
