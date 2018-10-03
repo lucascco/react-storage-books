@@ -10,7 +10,7 @@ export default class CustomSelect extends Component {
 					<option value={''}>Selecione</option>
 					{
 						this.props.listOptions
-							.map(option => <option value={option.value}>{ option.name }</option>)
+							.map(option => <option key={option.value} value={option.value}>{ option.name }</option>)
 					}
 				</select>
 			</div>

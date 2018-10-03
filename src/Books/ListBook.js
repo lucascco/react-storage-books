@@ -9,6 +9,7 @@ export class ListBook extends Component {
 						<tr>
 							<th>Título</th>
 							<th>Preço</th>
+							<th>Autor</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -17,6 +18,7 @@ export class ListBook extends Component {
 								<tr key={book.id}>
 									<td>{ book.titulo }</td>
 									<td>{ book.preco }</td>
+									<td>{ book.autor.nome }</td>
 								</tr>
 							)
 						}

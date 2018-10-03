@@ -8,6 +8,9 @@ export default class BookBox extends Component {
 	constructor() {
 		super();
 		this.state = { listBook: [] };
+	}
+	
+	componentDidMount() {
 		this.loadListBook();
 	}
 	
