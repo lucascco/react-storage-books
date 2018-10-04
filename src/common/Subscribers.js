@@ -14,18 +14,18 @@ export default class Subscribers {
 	}
 
 	onUpdateList(method, func, data) {
-		this.onPubSub(TOPIC_REGISTERS.UP_LIST, method, func, data);
+		return this.onPubSub(TOPIC_REGISTERS.UP_LIST, method, func, data);
 	}
 
 	onClearForm(method, func, data) {
-		this.onPubSub(TOPIC_REGISTERS.CLEAR_FORM, method, func, data);
+		return this.onPubSub(TOPIC_REGISTERS.CLEAR_FORM, method, func, data);
 	}
 
 	onFormError(method, func, data) {
-		this.onPubSub(TOPIC_REGISTERS.ERROR_FORM, method, func, data);
+		return this.onPubSub(TOPIC_REGISTERS.ERROR_FORM, method, func, data);
 	}
 
 	onPubSub(topic, method, func, data) {
-		this.functionsPubSub[method]({ topic, func, data });
+		return this.functionsPubSub[method]({ topic, func, data });
 	}
 }
