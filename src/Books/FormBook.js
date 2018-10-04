@@ -11,15 +11,11 @@ export class FormBook extends Component {
 
 	constructor() {
 		super();
-		this.setTitle = this.setTitle.bind(this);
-		this.setPrice = this.setPrice.bind(this);
-		this.setAuthor = this.setAuthor.bind(this);
 		this.postBook = this.postBook.bind(this);
 		this.state = {
 			listAuthors: [],
-			book: {}
+			book: {titulo: '', preco: '', autorId: ''}
 		};
-		this.initBook();
 		this.loadAuthors();
 	}
 
@@ -59,24 +55,16 @@ export class FormBook extends Component {
 		});
 	}
 
-	setTitle(event) {
-		this.setState({book: { ...this.state.book, titulo: event.target.value }});
-	}
-
-	setPrice(event) {
-		this.setState({book: { ...this.state.book, preco: Number.parseFloat(event.target.value) }});
-	}
-
-	setAuthor(event) {
-		this.setState({book: { ...this.state.book, autorId: Number.parseInt(event.target.value) }});
+	setBook(prop, event) {
+		this.setState({book: { ...this.state.book, [prop]: event.target.value }});
 	}
 
 	render() {
 		return (
 			<form className="pure-form pure-form-aligned" method="post" onSubmit={this.postBook}>
-				<CustomInput id="titulo" name="titulo" type="text" label="Titulo" value={this.state.book.titulo} onChange={this.setTitle}/>
-				<CustomInput id="preco" name="preco" type="number" label="Preço" value={this.state.book.preco} onChange={this.setPrice}/>
-				<CustomSelect id="autorId" name="autorId" listOptions={this.state.listAuthors} label="Selecione o Autor" value={this.state.book.autorId} onChange={this.setAuthor}/>
+				<CustomInput id="titulo" name="titulo" type="text" label="Titulo" value={this.state.book.titulo} onChange={this.setBook.bind(this, 'titulo')}/>
+				<CustomInput id="preco" name="preco" type="number" label="Preço" value={this.state.book.preco} onChange={this.setBook.bind(this, 'preco')}/>
+				<CustomSelect id="autorId" name="autorId" listOptions={this.state.listAuthors} label="Selecione o Autor" value={this.state.book.autorId} onChange={this.setBook.bind(this, 'autorId')}/>
 				<div className="pure-control-group">                                  
 					<label></label> 
 					<button type="submit" className="pure-button pure-button-primary">Cadastrar Livro</button>                                    
