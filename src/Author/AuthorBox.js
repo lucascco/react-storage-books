@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 
 import $ from 'jquery';
 import CustomInput from '../components/customInput';
-import SubscribersAuthor from './Subscribers';
 import { API_URL_AUTHOR } from './../common/ApiUrl';
+import Subscribers from '../common/Subscribers';
 
 class FormAuthor extends Component {
 
-	subscribersAuthor = new SubscribersAuthor();
+	subscribersAuthor = new Subscribers();
 
   constructor() {
     super();
@@ -95,7 +95,9 @@ class ListAuthors extends Component {
 
 export default class AuthorBox extends Component {
 	API_URL = 'http://cdc-react.herokuapp.com/api/autores';
-	subscribersAuthor = new SubscribersAuthor();
+	subscribersAuthor = new Subscribers();
+
+	subUpdateList;
 	
   constructor() {
 		super();
@@ -105,6 +107,10 @@ export default class AuthorBox extends Component {
   componentDidMount() {
 		this.loadAuthors();
 		this.registerSubscribes();
+	}
+
+	componentWillUnmount() {
+		this.subscribersAuthor.onPubSub(undefined, 'unsubscribe', this.subUpdateList);
 	}
 
 	loadAuthors() {
@@ -118,7 +124,7 @@ export default class AuthorBox extends Component {
 	}
 
 	registerSubscribes() {
-		this.subscribersAuthor.onUpdateList('subscribe', 
+		this.subUpdateList = this.subscribersAuthor.onUpdateList('subscribe', 
 			(topic, data) => this.setState({listAuthor: data.listAuthor}));
 	}
 	
